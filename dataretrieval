@@ -1,0 +1,35 @@
+# create a file path for downloading data 
+
+path_out <- "set an exit path for data here" 
+
+aqi_url <- c("https://aqs.epa.gov/aqsweb/airdata/annual_aqi_by_county_")
+
+aqi_year <- 1980:2022
+
+retrieve_aqi <- function(years, url) {
+  if (file.exists("aqi_summarydata.csv")) {
+    stop(you already downloaded these files)
+  }
+
+  for (each_year in years) {
+    year <- paste(url, each_year, ".zip", sep = "")
+
+    link_name <- substring(url, 43)
+
+    name <- paste(link_name, each_year, ".zip", sep = "")
+
+    files <- download.file(year, file.path(path_out, name))
+
+    file_list <- c(name)
+
+    setwd(path_out)
+
+    unzip(file_list)
+  }
+}
+
+retrieve_aqi(aqi_year, aqi_url)
+
+aqi_data <- list.files(path = path_out, pattern = "*.csv", full.names = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows()
