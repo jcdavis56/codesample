@@ -12,9 +12,9 @@ library(ggthemes)
 library(ggraph)
 library(igraph)
 
-setwd("~/DATA II")
+setwd()
 
-path_out <- "C:\\Users\\joshu\\OneDrive\\Documents\\DATA II"
+# path_out <- "insert a path to save plot output"
 
 links <- c(
   "https://www.govinfo.gov/content/pkg/CHRG-117hhrg47848/html/CHRG-117hhrg47848.htm",
@@ -122,8 +122,4 @@ bing_plot <- ggplot(data = filter(analysis_bing, !is.na(bing))) +
 nrc_plot
 
 bing_plot
-
-ggsave(filename = "bing_plot.png", plot = bing_plot)
-
-ggsave(filename = "nrc_plot.png", plot = nrc_plot)
 
